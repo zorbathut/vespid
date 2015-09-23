@@ -1,0 +1,28 @@
+{
+  "capabilities": {
+    "usage_prefer_projectname": true
+  },
+  "repositories": {
+    "//servername/vespid/projectname_main": {
+      "type": "projectname_main",
+      "local": "d:/vespid/projectname_main",
+      "persist": true
+    }
+    "//servername/vespid/general_1gb_1": {
+      "type": "general_1gb",
+      "local": "e:/vespid/general_1gb_1"
+    },
+    "//servername/vespid/general_1gb_2": {
+      "type": "general_1gb",
+      "local": "e:/vespid/general_1gb_2"
+    },
+    "//servername/vespid/general_1gb_3": {
+      "type": "general_1gb",
+      "local": "e:/vespid/general_1gb_3"
+    },
+    "//servername/vespid/general_1gb_4": {
+      "type": "general_1gb",
+      "local": "e:/vespid/general_1gb_4"
+    }
+  }
+}

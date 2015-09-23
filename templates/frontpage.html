@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="resources/style_frontpage.css" />
+  <script src="resources/script_frontpage.js"></script>
+{% endblock %}
+
+{% block content %}
+
+  <div id="tasklist">
+    <h4>TASKS</h4>
+    {% for task in tasks %}
+      <div class="task">
+        <div class="identifier">
+          <span class="indicator taskwork">
+            {{ task.status == "working" and "work" or "" }}
+          </span>
+          <span class="indicator taskresult-{{task.success}}">
+            {{ task.success }}
+          </span>
+          <span>
+            {{ task.name_pretty }}
+          </span>
+          <span class="tasknamefull">
+            {{ task.name }}
+          </span>
+        </div>
+        
+        <div class="details">
+          <div class="detailstime">
+            <div>Created {{ task["time-create"]|datetime }}</div>
+            {% if task["time-start"] is defined %}
+              <div>Started {{ task["time-start"]|datetime }}</div>
+            {% endif %}
+            {% if task["time-finish"] is defined %}
+              <div>Finished {{ task["time-finish"]|datetime }}</div>
+              <div>Total duration {{ (task["time-finish"] - task["time-start"])|duration }}</div>
+            {% endif %}
+          </div>
+          {% if task.node is defined %}
+            <div>Node {{ task.node }}</div>
+          {% endif %}
+          {% if task.repoview|length > 0 %}
+          <div class="detailsrepo">
+            <span>Repositories:</span>
+            {% for envname, reponame in task.repoview|dictsort %}
+              <div class="detailsrepoinst">{{ envname }}: {{ reponame }}</div>
+            {% endfor %}
+          </div>
+          {% endif %}
+          {% if task.log is defined %}
+          <div><a href="file:{{task.log}}">log</a></div>
+          {% endif %}
+          <div class="raw">
+            <span>Raw data</span>
+          </div>
+          <div class="rawdata">
+            {{ task.rawdata|jsonformat|safe }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+  <div id="nodelist">
+    <h4>NODES</h4>
+    {% for node in nodes %}
+      <div class="node">
+        <div class="identifier">
+          <span class="indicator">
+            {{ node.utilization_total > 0 and ("%d%%"|format((node.utilization_total * 100)|round)) or "" }}
+          </span>
+          <span>
+            {{ node.name }}
+          </span>
+        </div>
+        
+        <div class="details">
+          {% for utilname, utilamt in node.utilization|dictsort %}
+            <div>{{ utilname }}: {{ utilamt }} / {{ node.capabilities[utilname] }}</div>
+          {% endfor %}
+          {% if node.tasklist|length > 0 %}
+            <div class="detailstask">
+              <span>Active tasks:</span>
+              {% for task in node.tasklist %}
+                <div class="detailstaskinst">{{ task }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+          <div class="raw">
+            <span>Raw data</span>
+          </div>
+          <div class="rawdata">
+            {{ node.rawdata|jsonformat|safe }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+  <div id="repolist">
+    <h4>REPOS</h4>
+    {% for repo in repos %}
+      <div class="repo">
+        <div class="identifier">
+          <span class="indicator">
+            {{ repo.task and "active" or "" }}
+          </span>
+          <span>
+            {{ repo.name }}
+          </span>
+        </div>
+        
+        <div class="details">
+          {% if repo.task is defined %}
+            <div>Owned by {{ repo.task }}</div>
+          {% endif %}
+          <div class="raw">
+            <span>Raw data</span>
+          </div>
+          <div class="rawdata">
+            {{ repo.rawdata|jsonformat|safe }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

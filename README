@@ -1,0 +1,14 @@
+This is a half-built distributed computing system. Its goals were pretty simple:
+
+* Easy integration via Python
+* No centralized database of jobs; jobs must be defined on-the-fly by whatever process calls in
+* This also implies that job definitions can be kept in the main source repository instead of in a sideband repository, and old versions of the project can be run straight from the old source, in parallel with new versions, instead of needing to jury-rig an "old distributed server"
+* Arbitrarily complex job dependencies and job trees
+* Centralized management of network-accessible workspaces
+* Usable web interface, both for debugging and for management
+
+For various reasons it didn't end up used, so I talked the company I did it for into giving me the rights.
+
+Chances are good this particular codebase won't be extended. I want to continue work on it, but I learned a lot in the process of making this; also, Python as an implementation language was a mandate from management, and I wouldn't have chosen that on my own. If I do ever decide to continue, I'll likely take the protocol, turn it into XML or Cap'n Proto or something, rewrite the backend in Rust, and go from there.
+
+But we'll see.

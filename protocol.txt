@@ -1,0 +1,100 @@
+Protocol documentation.
+
+It is expected that this will become obsolete, because that's what documentation tends to do. Please try to keep it up-to-date!
+
+================================================================
+
+Messages to coordinator from client:
+
+{
+  "command": "task-create",
+  "name": "name-288381729-55838",
+  "name_pretty": "Data build 1/40",
+  "parent": "name-2",
+  "executable_pyscript": "print('hello')",
+  "requirements": {
+    "memory": 2000,
+    "cores": 5,
+    "cores_max": float("inf"),
+    "usage_require_projectname": True,
+    "usage_prefer_projectname": True,
+    "usage_projectname": True,
+  },
+  "repositories": {
+    "env": {"request": "general_1gb", "local": True}, (host indicates that this will only be started on the computer that's providing the repo)
+    alternatively:
+    "env": {"local": True}, (doesn't request a new environment, but does require that the existing one be hosted on the same computer)
+  },
+  "environment": { }
+}
+(no response)
+
+------------------
+
+{
+  "command": "task-info",
+  "name": "name-288381729-55838",
+}
+response:
+the same as the task-create command, only with task-info-response instead of task-create, and some new members:
+{
+  "command": "task-info-response",
+  "time-create": (unix timestamp),
+  "time-start": (unix timestamp),
+  "time-finish": (unix timestamp),
+  
+  "status": "invalid" or None (means idle) or "working" or "complete",
+  "success": "ok" or "warning" or "error" or "fatal" or "terminated" ("ok" only if complete, others can occur even while working; will never go down in severity)
+}
+
+================================================================
+
+Messages to coordinator from node:
+
+{
+	"command": "node-set",
+	"name": "nodename",
+	"capabilities": {
+		"memory": 24510,
+		"cores": 12,
+		"usage_prefer_projectname": True,
+		"usage_ephemeral": True,
+	},
+	"repositories": {
+		"//nodename/vespid/general_1gb": {"type": "general_1gb"},
+		"//nodename/vespid/projectname_main": {"type": "projectname_main", "persist": True},
+	},
+	"activetasks": { },
+}
+(response is an optional node-to-coordinator message)
+
+------------------
+
+{
+  "command": "task-complete",
+  "name": "name-288381729-55838",
+  "node": "nodename",
+  "success": "ok" or "warning" or "error" or "fatal" or "terminated",
+}
+(response is an optional node-to-coordinator message)
+
+================================================================
+
+Messages to node from coordinator:
+
+{
+  "command": "task-run",
+  "name": "name-288381729-55838",
+  "executable_pyscript": "print('hello')",
+  "path": "//nodename/vespid/etc",
+  "log": "//logserver/vespid/logs/x.log",
+}
+(no response)
+
+================================================================
+
+Environment variables for started task:
+
+VESPID_TASK="taskname-23818"
+
+All other info should be received through task-info

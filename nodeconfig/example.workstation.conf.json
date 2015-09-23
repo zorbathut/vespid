@@ -1,0 +1,17 @@
+{
+  "workstation": true,
+  "capabilities": {
+    "usage_prefer_projectname": true
+  },
+  "repositories": {
+    "//workstationname/vespid/general_1gb": {
+      "type": "general_1gb",
+      "local": "z:/vespid/general_1gb"
+    },
+    "//workstationname/vespid/projectname_main": {
+      "type": "projectname_main",
+      "local": "z:/vespid/projectname_main",
+      "persist": true
+    }
+  }
+}

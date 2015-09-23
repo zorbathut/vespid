@@ -1,0 +1,156 @@
+
+#content
+{
+	display: flex;
+}
+
+#content > div
+{
+	padding: 1em;
+}
+
+#content > div > h4
+{
+	margin-bottom: 0.5em;
+}
+
+#tasklist
+{
+	flex-grow: 5;
+	flex-basis: 20em;
+	order: 1;
+	background-color: #fcffff;
+}
+
+#nodelist
+{
+	flex-grow: 1;
+	flex-basis: 10em;
+	order: 2;
+	background-color: #fffcff;
+}
+
+#repolist
+{
+	flex-grow: 1;
+	flex-basis: 10em;
+	order: 3;
+	background-color: #fffffc;
+}
+
+.identifier
+{
+	overflow: hidden;
+	overflow-wrap: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+.indicator
+{
+	display: inline-block;
+	width: 3em;
+	text-align: center;
+}
+
+.taskresult-ok
+{
+	color: #008000;
+}
+
+.taskresult-warning
+{
+	color: #a0a000;
+}
+
+.taskresult-error
+{
+	color: #c00000;
+}
+
+.taskresult-fatal
+{
+	color: #c00000;
+}
+
+.taskresult-term
+{
+	color: #c00000;
+}
+
+.tasknamefull
+{
+	color: #d0d0d0;
+	padding-left: 4em;
+}
+
+.details
+{
+	display: none;
+	padding-bottom: 1em;
+	
+	/* it is unclear why this isn't working properly */
+	overflow: hidden;
+	overflow-wrap: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.task .details
+{
+	padding-left: 7em;
+}
+
+.node .details
+{
+	padding-left: 4em;
+}
+
+.repo .details
+{
+	padding-left: 4em;
+}
+
+.detailstime
+{
+	padding-bottom: 0.5em;
+}
+
+.detailsrepo
+{
+	padding-top: 0.5em;
+}
+
+.detailsrepoinst
+{
+	padding-left: 1em;
+}
+
+.detailstask
+{
+	padding-top: 0.5em;
+}
+
+.detailstaskinst
+{
+	padding-left: 1em;
+}
+
+.raw
+{
+	padding-top: 0.5em;
+	color: #3030a0;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.rawdata
+{
+	display: none;
+}
+
+.rawdata div
+{
+	padding-left: 1em;
+}
